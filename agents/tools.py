@@ -61,24 +61,43 @@ Türkçe ay isimleri kullan: Ocak, Şubat, Mart, Nisan, Mayıs, Haziran, Temmuz,
 
 def text_analyzer(text: str) -> str:
     """Meta-Llama Maverick ile gelişmiş metin analizi"""
-    prompt = f"""
-Aşağıdaki metni detaylı analiz et:
+    prompt = f""
+    # Prompt-based intent classifier
+    def classify_intent_with_llm(message: str, tools: List[Tool]) -> Optional[str]:
+        """
+        LLM tabanlı: Kullanıcı mesajından en uygun tool'u seçer. Sadece tool adını (name) döndürür.
+        """
+        from groq import Groq
+        import os
+        import json
+        # Tool açıklamalarını al
+        tool_descriptions = {tool.name: tool.description for tool in tools}
+        prompt = f"""
+Kullanıcı mesajı: {message}
 
-METİN:
-{text}
+Aşağıda kullanabileceğin tool'lar ve açıklamaları var:
+{json.dumps(tool_descriptions, ensure_ascii=False, indent=2)}
 
-Analiz şu bilgileri içermeli:
-1. Kelime sayısı
-2. Karakter sayısı (boşluklar dahil)
-3. Cümle sayısı
-4. Ortalama kelime uzunluğu
-5. Dil tespiti (Türkçe/İngilizce/Fransızca/Almanca/vb)
-6. Ton analizi (resmi/samimi/nötr/akademik)
-7. Özel karakterler sayısı (ç,ğ,ı,ö,ş,ü vb)
-8. Karmaşıklık seviyesi (basit/orta/karmaşık)
-
-JSON formatında düzenli olarak sun ve ekstra insight'lar ekle.
+En uygun tool'un sadece adını (name) tek kelime olarak döndür.
+Ekstra açıklama, kod veya başka bir şey yazma.
 """
+        client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+        try:
+            completion = client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                messages=[
+                    {"role": "system", "content": "Sen bir AI asistanısın. Sadece en uygun tool adını (name) döndür."},
+                    {"role": "user", "content": prompt}
+                ],
+                max_tokens=16,
+                temperature=0.0
+            )
+            tool_name = completion.choices[0].message.content.strip().split()[0]
+            if tool_name in tool_descriptions:
+                return tool_name
+            return None
+        except Exception as e:
+            return None
     return tool_engine._call_llm(prompt)
 
 def language_detector(text: str) -> str:

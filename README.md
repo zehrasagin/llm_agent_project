@@ -1,19 +1,24 @@
+
 # CevapLlama 3.3 Vision - Ultra Advanced AI
 
-Bu proje Gradio arayüzü kullanarak kullanıcıdan metin ve görsel alır, Groq AI üzerinden **LLaMA 3.3** serisi modelleri kullanır ve LangChain agent yapısı ile güçlendirilmiş bir sistem sunar.
 
-## 🚀 LLaMA 3.3 Serisi Modelleri
+This project uses a Gradio interface to receive text and images from the user, leverages **LLaMA 3.3** series models via Groq AI for text, and integrates Gemini Vision API for advanced image analysis. The system is orchestrated with a LangChain agent structure for modular and intelligent tool use.
+
+
+## 🚀 LLaMA 3.3 & Gemini Vision Models
 
 - **🧠 llama-3.3-70b-versatile**: En güçlü genel amaçlı model (70B param)
 - **⚡ llama-3.3-70b-specdec**: Hızlı speculative decoding (70B param)
 - **🤖 llama-3.1-405b-reasoning**: Muhakeme odaklı dev model (405B param!)
-- **👁️ llama-3.2-90b-vision-preview**: En gelişmiş görsel analiz (90B param)
+- **👁️ llama-3.2-90b-vision-preview**: Gelişmiş görsel analiz (90B param, metin tabanlı)
+- **🔮 Gemini Vision API**: Google Gemini ile gerçek görsel analiz ve OCR
 - **🛠️ llama3-groq-70b-8192-tool-use-preview**: Tool kullanımı optimize
 - **💾 8K Token Limit**: Uzun metinler ve detaylı analiz
 
-## 🚀 Yeni Özellikler
 
-- **🖼️ Görsel Analiz**: Resim yükleyip ne olduğunu öğrenin
+## 🚀 New Features
+
+- **🖼️ Görsel Analiz (Gemini Vision)**: Resim yükleyin, Gemini API ile içeriği ve metni analiz edin
 - **🌍 Çoklu Dil Desteği**: Türkçe, İngilizce, Fransızca otomatik algılama
 - **🧠 Gelişmiş AI**: Akıllı promptlar ve bağlam anlayışı
 - **📱 Modern Arayüz**: Görsel yükleme ve geliştirilmiş tasarım
@@ -45,17 +50,18 @@ python main.py
 - "Saat kaç?" → Güncel saat bilgisi
 - "Bu metni analiz et: Lorem ipsum..."
 
-### Görsel Analiz
-- Fotoğraf yükleyin + "Bu nedir?"
-- Ekran görüntüsü + "Bu sayfada ne yazıyor?"
-- Grafik + "Bu grafiği açıkla"
+### Image Analysis (Gemini Vision)
+- Upload a photo + "What is this?" (analyzed by Gemini Vision)
+- Screenshot + "What does this page say?" (OCR by Gemini Vision)
+- Chart/graph + "Explain this graphic" (visual context by Gemini Vision)
 
-## 🎯 AI Yetenekleri
 
-- **Vision Model**: llama-3.2-90b-vision-preview (90B parametreli!)
+## 🎯 AI Capabilities
+
+- **Vision Models**: llama-3.2-90b-vision-preview (text-based), Gemini Vision API (real image understanding)
 - **Text Model**: llama-3.1-70b-versatile (70B parametreli!)
 - **Dil Algılama**: Otomatik çoklu dil desteği
-- **Görsel Okuma**: Yüksek çözünürlük resim, grafik, text analizi  
+- **Görsel Okuma**: Yüksek çözünürlük resim, grafik, metin analizi (Gemini Vision ile gerçek OCR ve görsel anlama)
 - **Akıllı Yanıtlar**: 4K token ile detaylı bağlam bilincinde cevaplar
 - **Hızlı İşleme**: Groq'un optimize edilmiş inference hızı
 
@@ -89,10 +95,11 @@ llm_agent_project/
 - **Dil**: Çoklu dil algılama
 - **Arama**: Temel bilgi sorguları
 
-### Vision AI
-- Resim yükleme (dosya/webcam)
-- Otomatik boyut optimizasyonu
-- Detaylı görsel açıklama
-- Yazı okuma (OCR benzeri)
+### Vision AI (Gemini + LLaMA)
+- Image upload (file/webcam)
+- Automatic size optimization
+- Detailed image description (Gemini Vision API)
+- Text reading (real OCR with Gemini Vision)
+- Visual context and scene understanding
 
 Bu sistem artık profesyonel seviyede bir AI asistan! 🤖✨
