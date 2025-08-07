@@ -85,8 +85,7 @@ Sen sadece bir AI değil, Llama 3.3 seviye problem solver'sın! 🚀"""
                 "llama3-70b-8192"
             ],
             "vision_models": [
-                "llama-3.2-90b-vision-preview",
-                "llama-3.2-11b-vision-preview"
+                "models/gemini-2.0-flash-lite"
             ]
         }
     
